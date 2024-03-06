@@ -16,9 +16,19 @@ const express = require('express');
 const router = express.Router();
 const wrap = require('amk-wrap');
 
+class Controller {
+  constructor() {
+    this.something = "something"
+  }
+  async get(req, res) {
+    this.something; // access this
+    res.send('hello world');
+  }
+}
+const controller = new Controller();
 module.exports = function (controller) {
-	router.get('/', wrap(controller.get));
-	return router;
+  router.get('/', wrap(controller, 'get'));
+  return router;
 }
 
 ```
