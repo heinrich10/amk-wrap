@@ -4,8 +4,9 @@
   "description": "function wrapper to catch errors in express.js controllers",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint .",
-    "test": "./node_modules/.bin/nyc ./node_modules/mocha/bin/_mocha"
+    "lint": "eslint .",
+    "test": "nyc mocha",
+    "codecov": "codecov"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "type": "commonjs",
   "devDependencies": {
     "chai": "^5.1.0",
+    "codecov": "^3.8.3",
     "eslint": "^8.57.0",
     "mocha": "^10.3.0",
     "nyc": "^15.1.0"
