@@ -16,7 +16,7 @@ describe('Wrapper function', async () => {
     const chai = await import('chai');
     expect = chai.expect;
   });
-  it('Should wrap the function with the context, then execute normally', (done) => {
+  it('Should wrap the class method with the context, then execute normally', (done) => {
     const newValue= 2;
     class TestClass {
       constructor() {
@@ -41,7 +41,7 @@ describe('Wrapper function', async () => {
       });
     });
   });
-  it('Should catch the error when the async function throws an error', (done) => {
+  it('Should catch the error when the class method throws an error', (done) => {
     class TestClass {
       async setValue() {
         throw new Error();
@@ -55,7 +55,7 @@ describe('Wrapper function', async () => {
       });
     });
   });
-  it('Should also work when input is a function',  (done) => {
+  it('Should also wrap a function',  (done) => {
     const req = {value: 0};
     const res = {value: 0};
     const newValue = 5;
@@ -81,7 +81,7 @@ describe('Wrapper function', async () => {
       });
     });
   });
-  it('Shoud throw an error when class method is not a Promise/Async function', (done) => {
+  it('Should throw an error when class method is not a Promise/Async function', (done) => {
     class TestClass {
       notAPromise() {}
     }
@@ -98,7 +98,16 @@ describe('Wrapper function', async () => {
     fn(null, null, (err) => {
       handleAssertError(done, () => {
         expect(err).to.be.instanceOf(TypeError);
-        expect(err.message).to.be('Invalid arguments');
+        expect(err.message).to.be.equal('Invalid arguments');
+      });
+    });
+  });
+  it('Should throw an error if there are no arguments', (done) => {
+    const fn = wrap();
+    fn(null, null, (err) => {
+      handleAssertError(done, () => {
+        expect(err).to.be.instanceOf(TypeError);
+        expect(err.message).to.be.equal('Invalid arguments');
       });
     });
   });
